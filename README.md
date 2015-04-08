@@ -21,7 +21,7 @@ instrucciones:
 
 8) Instalar psycopg2 (interfaz entre python y postgresql) de la siguiente manera: `sudo apt-get install python-psycopg2`
 
-9) Instalar API Twitter
+9) Instalar API Twitter `sudo pip install python-twitter`
 
 10) Ejecutar para actualizar el modelo de la DB `python manage.py migrate`
 
