@@ -3,4 +3,12 @@ from concurso.models import tweetCargado
 
 
 # Register your models here.
-admin.site.register(tweetCargado)
+
+
+class tweetCargadoAdmin(admin.ModelAdmin):
+    # ...
+    list_display = ('idRef' ,'userRef', 'text')
+    list_filter = ['estado']
+
+
+admin.site.register(tweetCargado,tweetCargadoAdmin)
