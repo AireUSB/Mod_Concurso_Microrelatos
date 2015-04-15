@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from concurso import models
 # Create your views here.
 def index(request):
-	info = {'hola':'perra'}
+	info = {'hola':'Aire'}
 	return render(request, 'concurso/index.html',info)
 
 def aprobarTweet(request,idT):
