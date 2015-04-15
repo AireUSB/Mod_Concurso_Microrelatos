@@ -18,7 +18,8 @@ class tweetCargado(models.Model):
     )
     estado = models.CharField(max_length=1, choices=ESTADO, default='P')
 
-    def aprobarTweet(self, api):
+    def aprobarTweet(self):
+    	api=loginConcurso()
     	self.estado='A'
     	self.save()
     	api.PostRetweet(self.idRef) #se retwitea si se aprueba

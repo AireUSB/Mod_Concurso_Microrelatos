@@ -7,7 +7,7 @@ from concurso.models import tweetCargado
 
 class tweetCargadoAdmin(admin.ModelAdmin):
     # ...
-    list_display = ('idRef' ,'userRef', 'text')
+    list_display = ('userRef', 'text','rtCount','estado')
     list_filter = ['estado']
 
 

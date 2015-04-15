@@ -10,6 +10,7 @@ urlpatterns = [
     # url(r'^$', 'Concurso_Microrelato.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'concurso.views.index', name='index'),
+    url(r'^aprobar_tweet$', 'concurso.views.aprobarTweet', name='aprobarTweet'),
     url(r'^admin/', include(admin.site.urls)),
     #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]
