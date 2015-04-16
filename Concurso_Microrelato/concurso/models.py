@@ -99,22 +99,23 @@ def startTweetStream(palabra,api):
 	for tweet in api.GetStreamFilter(track=[palabra]):
 		lastTweet = Status.NewFromJsonDict(tweet)
 		statusToTweet(lastTweet.id,lastTweet.user.screen_name,lastTweet.text)
-		print lastTweet.text
+		#print lastTweet.text
 		if (daemonStatus == 0):
 			print "Captacion de Tweets detenida"
 			return
 
 #activa hilo demonio a captar tweets con la palabra 'busqueda'
 def startDaemonThread(busqueda):
-	api=loginConcurso()
-	try:
-		global daemonStatus
-		daemonStatus = 1
-		global daemonThread
-		daemonThread = threading.Thread(target=startTweetStream, args=[busqueda,api])
-		daemonThread.start()
-	except:
-		print "Error: unable to start thread"
+	global daemonStatus
+	if(daemonStatus==0):
+		api=loginConcurso()
+		try:
+			daemonStatus = 1
+			global daemonThread
+			daemonThread = threading.Thread(target=startTweetStream, args=[busqueda,api])
+			daemonThread.start()
+		except:
+			print "Error: unable to start thread"
 
 #desactiva hilo demonio
 def stopDaemonThread():
@@ -123,7 +124,9 @@ def stopDaemonThread():
 	return
 
 
-
+def daemonThreadStatus():
+	global daemonStatus
+	return daemonStatus
 
 
 

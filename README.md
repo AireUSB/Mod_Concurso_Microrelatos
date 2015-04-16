@@ -3,7 +3,7 @@ Espacio para mantener los archivos relacionados con el desarrollo del Módulo de
 
 instrucciones:
 
-0) Instalar "pip" para manejar versiones de todo lo que se necesite
+0) Instalar "pip" y "GitHub" para manejar versiones de todo lo que se necesite
 
 1) Instalar django (ultima version estable)con el siguiente comando: `sudo pip install Django`.
 
@@ -22,6 +22,8 @@ instrucciones:
 8) Instalar psycopg2 (interfaz entre python y postgresql) de la siguiente manera: `sudo apt-get install python-psycopg2`
 
 9) Instalar API Twitter `sudo pip install python-twitter`
+
+10) hacer "pull" o "clone" con Git segun sea necesario de la ultima version 'git clone..' o 'git pull' 
 
 10) Ejecutar para actualizar el modelo de la DB `python manage.py migrate`
 
