@@ -25,6 +25,5 @@ instrucciones:
 
 10) hacer "pull" o "clone" con Git segun sea necesario de la ultima version 'git clone..' o 'git pull' 
 
-10) Ejecutar para actualizar el modelo de la DB `python manage.py migrate`
-
-11) Probar: `python manage.py runserver`
+12) Ejecutar para actualizar el modelo de la DB `python manage.py migrate`
+ Probar: `python manage.py runserver`
