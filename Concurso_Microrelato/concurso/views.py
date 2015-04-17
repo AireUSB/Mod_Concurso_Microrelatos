@@ -6,6 +6,7 @@ from .models import *
 import pdb
 # Create your views here.
 #@method_decorator(login_required)
+@login_required(redirect_field_name='')
 def index(request):
 	info = {'hola':'Aire'}
 	return render(request, 'concurso/index.html',info)
