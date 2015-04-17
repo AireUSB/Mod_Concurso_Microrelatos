@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^activar_captacion/$', 'concurso.views.activarCaptacion', name='activarCaptacion'),#activa captacion
     url(r'^desactivar_captacion/$', 'concurso.views.desactivarCaptacion', name='desactivarCaptacion'),#desactiva captacio
     url(r'^daemon_status/$', 'concurso.views.daemonStatus', name='daemonStatus'),#status del demonio
+    url(r'^tweets_pendientes/$', 'concurso.views.getTweetsPendientes', name='getTweetsPendientes'),#tweets pendientes
     url(r'^admin/', include(admin.site.urls)),
     #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]

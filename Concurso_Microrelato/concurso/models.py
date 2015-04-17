@@ -70,7 +70,7 @@ def updateRtCount():
 	for rtTweet in tweetsAprobados:
 		rtTweet.rtCount=api.GetStatus(id=rtTweet.idRef).retweet_count
 		rtTweet.save()
-		return(tweetsAprobados)
+	return(tweetsAprobados)
 
 #devuelve lista con tweets aprobados ordenados por su rtCount y actualizado
 def getTopRt():
@@ -123,10 +123,20 @@ def stopDaemonThread():
 	daemonStatus = 0
 	return
 
-
+#retorna statusdel hilo 0 = apagado 1 = encendido
 def daemonThreadStatus():
 	global daemonStatus
 	return daemonStatus
+
+#retorna los primeros 'num' tweets pendientes
+def getTweetsP(num):
+
+	tweetsPendientes=tweetCargado.objects.filter(estado='P').order_by('idRef')
+	if (len(tweetsPendientes)>=num):
+		return tweetsPendientes[:num]
+	else:
+		return tweetsPendientes
+
 
 
 
