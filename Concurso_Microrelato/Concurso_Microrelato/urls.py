@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^desactivar_captacion/$', 'concurso.views.desactivarCaptacion', name='desactivarCaptacion'),#desactiva captacio
     url(r'^daemon_status/$', 'concurso.views.daemonStatus', name='daemonStatus'),#status del demonio
     url(r'^tweets_pendientes/$', 'concurso.views.getTweetsPendientes', name='getTweetsPendientes'),#tweets pendientes
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),#admin site
+    url(r'^login/$', 'django.contrib.auth.views.login'),#login
+    url(r'^logout/$', 'django.contrib.auth.views.logout'),#logout
     #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]

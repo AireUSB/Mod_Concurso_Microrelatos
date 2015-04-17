@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .models import *
 import pdb
 # Create your views here.
+#@method_decorator(login_required)
 def index(request):
 	info = {'hola':'Aire'}
 	return render(request, 'concurso/index.html',info)
 
 def aprobarTweet(request):
-	
+
 	if (request.method=='POST' and 'id' in request.POST):
 		aprobado=tweetCargado.objects.get(idRef=request.POST['id'])
 		aprobado.aprobarTweet()
