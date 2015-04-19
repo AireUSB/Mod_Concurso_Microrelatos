@@ -137,6 +137,15 @@ def getTweetsP(num):
 	else:
 		return tweetsPendientes
 
+#retorna los primeros 'num' tweets aprobados
+def getTweetsA(num):
+
+	tweetsAprobados=tweetCargado.objects.filter(estado='A').order_by('idRef')
+	if (len(tweetsAprobados)>=num):
+		return tweetsAprobados[:num]
+	else:
+		return tweetsAprobados
+
 
 
 

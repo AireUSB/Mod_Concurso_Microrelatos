@@ -1,4 +1,5 @@
-from django.conf.urls import include, url
+from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
@@ -15,8 +16,11 @@ urlpatterns = [
     url(r'^desactivar_captacion/$', 'concurso.views.desactivarCaptacion', name='desactivarCaptacion'),#desactiva captacio
     url(r'^daemon_status/$', 'concurso.views.daemonStatus', name='daemonStatus'),#status del demonio
     url(r'^tweets_pendientes/$', 'concurso.views.getTweetsPendientes', name='getTweetsPendientes'),#tweets pendientes
+    url(r'^tweets_aprobados/$', 'concurso.views.getTweetsAprobados', name='getTweetsAprobados'),#tweets aprobados
     url(r'^admin/', include(admin.site.urls)),#admin site
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',name='login'),#login
     url(r'^logout/$', 'django.contrib.auth.views.logout'),#logout
     #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]
+
+urlpatterns += staticfiles_urlpatterns()

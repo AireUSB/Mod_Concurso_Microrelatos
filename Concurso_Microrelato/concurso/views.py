@@ -28,13 +28,19 @@ def desactivarCaptacion(request):
 	return HttpResponse('Captacion Detenida')
 
 def daemonStatus(request):
-	encendido = daemonThreadStatus()
-	if(encendido):
-		return HttpResponse('Demonio Activo')
-	else:
-		return HttpResponse('Demonio Inactivo')
+  encendido = daemonThreadStatus()
+  if(encendido):
+    info = {'estado':'Activo'}
+  else:
+    info = {'estado':'Inactivo'}
+  return render(request, 'concurso/status_daemon.html',info)
 
 def getTweetsPendientes(request):
 	pendientes = getTweetsP(num=15)
 	info = {'tweets':pendientes}
 	return render(request, 'concurso/new_tweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
+
+def getTweetsAprobados(request):
+	aprobados = getTweetsA(num=15)
+	info = {'tweets':aprobados}
+	return render(request, 'concurso/approved_tweets.html',info) #hay q mandar solo no necesario. usar cotext con renders

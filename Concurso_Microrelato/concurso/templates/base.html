@@ -1,9 +1,60 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <link href="{% static 'concurso/css/bootstrap.min.css' %}"
+          rel="stylesheet" media="screen">
+  </head>
+
   <body>
-    <div>
-      {{ user }}
-      {% if user.is_anonymous %}
-      <a href="{% url 'django.contrib.auth.views.login' %}">login</a>
-      {% else %}
-      <a href="{% url 'django.contrib.auth.views.logout' %}">logout</a>
-      {% endif %}
-    </div>
+    <!-- Barra Navegacion -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url "index" %}">Modulo Microrelatos AireUSB</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            <li class="{% if request.resolver_match.url_name == "getTweetsAprobados" %}active{% endif %}">
+              <a href="{% url "getTweetsAprobados" %}">Tweets Aprobados</a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li class="{% if request.resolver_match.url_name == "getTweetsPendientes" %}active{% endif %}">
+              <a href="{% url "getTweetsPendientes" %}">Tweets Pendientes</a>
+            </li>
+            <li class="{% if request.resolver_match.url_name == "daemonStatus" %}active{% endif %}">
+              <a href="{% url "daemonStatus" %}">Status Captacion</a>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_anonymous %}
+              <li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+            {% else %}
+              <li><a href="{% url 'django.contrib.auth.views.login' %}">Logout</a></li>
+            {% endif %}
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    <!-- Fin barra navegacion -->
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="{% static 'concurso/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
+
+
+  <body>
+    

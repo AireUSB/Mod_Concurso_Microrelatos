@@ -15,19 +15,7 @@
 		<!--<script src="static/concurso/js/bootstrap.min.js"></script>-->
 		<script src="static/concurso/js/jquery-2.1.3.min.js"></script>
 		<script src="static/concurso/js/function.js"></script>
-		<script type="text/javascript">
-		function aprobarTweet(id){
-			$.ajax({
-			method: "POST",
-			url: "{% url 'aprobarTweet' %}",
-			data: { id : id }
-			})
-			.done(function( msg ) {
-				alert( msg );
-			});
-		}
 
-		</script>
 	</head>
 	<body>
 		<ul>
@@ -35,18 +23,16 @@
         <thead>
           <th>Usuario</th>
           <th>Microcuento</th>
-          <th>Aprobar</th>
         </thead>
         <tbody>
 			    {% for tweet in tweets %}
             <tr>
-				      <td>{{tweet.userRef}}</td>
+              <td>{{tweet.userRef}}</td>
               <td>{{tweet.text}}</td>
-              <td><input class="btn btn-default" type="button" value="Aprobar Tweet" onclick="aprobarTweet('{{tweet.idRef}}')"></td>
             </tr>
-			    {% endfor %}	
+			    {% endfor %}
         </tbody>
-      </table>			
+      </table>	
 		</ul>
 	</body>
 </html>
