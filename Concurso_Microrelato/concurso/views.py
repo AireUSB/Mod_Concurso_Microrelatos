@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -13,19 +13,24 @@ def index(request):
 
 def aprobarTweet(request):
 
-	if (request.method=='POST' and 'id' in request.POST):
-		aprobado=tweetCargado.objects.get(idRef=request.POST['id'])
-		aprobado.aprobarTweet()
-		return HttpResponse('Aprobado!')
-	return HttpResponse('error')
+  if (request.method=='POST' and 'id' in request.POST):
+    aprobado=tweetCargado.objects.get(idRef=request.POST['id'])
+    aprobado.aprobarTweet()
+    return HttpResponse('Aprobado!')
+    #return redirect('getTweetsPendientes')
+  return HttpResponse('error')
 
 def activarCaptacion(request):
-	startDaemonThread('palabra')
-	return HttpResponse('Captando Tweets')
+  startDaemonThread('palabra')
+  return redirect('daemonStatus')
+  #return HttpResponse('Captando Tweets')
+  #return render(request, "concurso/status_daemon.html", {'estado':'Activo'})
 
 def desactivarCaptacion(request):
-	stopDaemonThread()
-	return HttpResponse('Captacion Detenida')
+  stopDaemonThread()
+  return redirect('daemonStatus')
+  #return HttpResponse('Captacion Detenida')
+  #return render(request, "concurso/status_daemon.html", {'estado':'Inactivo'})
 
 def daemonStatus(request):
   encendido = daemonThreadStatus()
