@@ -10,7 +10,9 @@ class tweetCargado(models.Model):
     userRef = models.CharField(max_length=40,default='')	#status.user.screen_name
     rtCount = models.IntegerField()							#status.retweet_count
     text =	models.CharField(max_length=200) 				#status.text
-    rating = models.IntegerField()							#rating a evaluar
+    juez1 = models.IntegerField(default=0)
+    juez2 = models.IntegerField(default=0)
+    juez3 = models.IntegerField(default=0)							#rating a evaluar
     ESTADO = (
         ('A', 'Aprobado'), 	#tweet aprobado y concursando
         ('R', 'Rechazado'), 
