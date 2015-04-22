@@ -2,7 +2,7 @@ from django.db import models
 import twitter
 import time
 import threading
-from twitter import Status
+from twitter import Status, TwitterError
 # Create your models here.
 #clase q representa un tweet para Django y la DB
 class tweetCargado(models.Model):
@@ -24,9 +24,9 @@ class tweetCargado(models.Model):
     	self.save()
     	api.PostRetweet(self.idRef) #se retwitea si se aprueba
 
-	def rechazarTweet(self):
-		self.estado='R'
-		self.save()
+    def rechazarTweet(self):
+      self.estado='R'
+      self.save()
 
 #twiter exige autentificacion para usar su API
 def loginConcurso():
@@ -65,17 +65,22 @@ def searchToTweet(palabra):
 
 #actializa el conteo de retweets de los tweets aprobados
 def updateRtCount():
-	tweetsAprobados=tweetCargado.objects.filter(estado='A')
-	api = loginConcurso()
-	for rtTweet in tweetsAprobados:
-		rtTweet.rtCount=api.GetStatus(id=rtTweet.idRef).retweet_count
-		rtTweet.save()
-	return(tweetsAprobados)
+  tweetsAprobados=tweetCargado.objects.filter(estado='A')
+  api = loginConcurso()
+  for rtTweet in tweetsAprobados:
+    try:    
+      rtTweet.rtCount=api.GetStatus(id=rtTweet.idRef).retweet_count
+      rtTweet.save()
+    except TwitterError:
+      #Status ya no existe
+      rtTweet.rtCount=-1
+      rtTweet.save()
+  return(tweetsAprobados)
 
 #devuelve lista con tweets aprobados ordenados por su rtCount y actualizado
 def getTopRt():
 	aprobados = updateRtCount()
-	aprobados.order_by('rtCount')
+	aprobados.order_by('-rtCount')
 	return (aprobados)
 
 #imprime lista de twitter.status

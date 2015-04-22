@@ -9,38 +9,30 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Concurso Twitter Aire-USB</title>
 
-		<script type="text/javascript">
-		function aprobarTweet(id){
-			$.ajax({
-			method: "POST",
-			url: "{% url 'aprobarTweet' %}",
-			data: { id : id }
-			})
-			.done(function( msg ) {
-				alert( msg );
-			});
-		}
-
-		</script>
 	</head>
 	<body>
+    <center>
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <strong>Informacion:</strong> Si la cantidad de retweets es -1 este tweet fue borrado por el que lo publico
+      </div>
+    </center>
 		<ul>
       <table style="width:100%" class="table table-striped table-hover ">
         <thead>
           <th style="text-align:center">Usuario</th>
           <th style="text-align:center">Microcuento</th>
+          <th style="text-align:center">Numero de Retweets</th>
         </thead>
         <tbody>
 			    {% for tweet in tweets %}
             <tr>
-				      <td>{{tweet.userRef}}</td>
+              <td>{{tweet.userRef}}</td>
               <td>{{tweet.text}}</td>
-              <td><a class="btn btn-success" type="button" href="/tweets_pendientes/aprobar/{{tweet.idRef}}/">Aprobar</a></td>
-              <td><a class="btn btn-danger" type="button" href="/tweets_pendientes/rechazar/{{tweet.idRef}}/">Rechazar</a></td>
+              <td>{{tweet.rtCount}}</td>
             </tr>
-			    {% endfor %}	
+			    {% endfor %}
         </tbody>
-      </table>			
+      </table>	
 		</ul>
 	</body>
 </html>

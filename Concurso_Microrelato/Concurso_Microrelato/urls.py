@@ -18,7 +18,10 @@ urlpatterns = [
     url(r'^daemon_status/desactivar_captacion/$', 'concurso.views.desactivarCaptacion', name='desactivarCaptacion'),#desactiva captacio
     url(r'^daemon_status/$', 'concurso.views.daemonStatus', name='daemonStatus'),#status del demonio
     url(r'^tweets_pendientes/$', 'concurso.views.getTweetsPendientes', name='getTweetsPendientes'),#tweets pendientes
+    url(r'^tweets_pendientes/aprobar/(?P<idtweet>\d+)/$', 'concurso.views.aprobarTweetURL', name='aprobarTweetURL'),#aprobar tweet
+    url(r'^tweets_pendientes/rechazar/(?P<idtweet>\d+)/$', 'concurso.views.rechazarTweetURL', name='rechazarTweetURL'),#rechazar tweet
     url(r'^tweets_aprobados/$', 'concurso.views.getTweetsAprobados', name='getTweetsAprobados'),#tweets aprobados
+    url(r'^top_tweets_rt/$', 'concurso.views.getTweetsPorRT', name='getTweetsPorRT'),#tweets por RT
     url(r'^admin/', include(admin.site.urls)),#admin site
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',name='login'),#login
     url(r'^logout/$', 'django.contrib.auth.views.logout'),#logout

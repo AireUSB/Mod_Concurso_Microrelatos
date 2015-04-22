@@ -20,6 +20,16 @@ def aprobarTweet(request):
     #return redirect('getTweetsPendientes')
   return HttpResponse('error')
 
+def aprobarTweetURL(request,idtweet):
+    aprobado=tweetCargado.objects.get(idRef=idtweet)
+    aprobado.aprobarTweet()
+    return redirect('getTweetsPendientes')
+
+def rechazarTweetURL(request,idtweet):
+    rechazado=tweetCargado.objects.get(idRef=idtweet)
+    rechazado.rechazarTweet()
+    return redirect('getTweetsPendientes')
+
 def activarCaptacion(request):
   startDaemonThread('palabra')
   return redirect('daemonStatus')
@@ -49,3 +59,9 @@ def getTweetsAprobados(request):
 	aprobados = getTweetsA(num=15)
 	info = {'tweets':aprobados}
 	return render(request, 'concurso/approved_tweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
+
+def getTweetsPorRT(request):
+  toptweets = getTopRt()
+  toptweets.order_by('-rtCount')
+  info = {'tweets':toptweets}
+  return render(request, 'concurso/top_retweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
