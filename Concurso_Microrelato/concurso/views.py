@@ -83,7 +83,7 @@ def getTweetsPendientes(request):
 
 @login_required(redirect_field_name='')
 def getTweetsAprobados(request):
-	aprobados = getTweetsA(num=15)
+	aprobados = getTweetsA()
 	info = {'tweets':aprobados}
 	return render(request, 'concurso/approved_tweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
 

@@ -170,16 +170,10 @@ def getTweetsP(num):
 	else:
 		return tweetsPendientes
 
-#retorna los primeros 'num' tweets aprobados
-def getTweetsA(num):
-
-
+#retorna los tweets aprobados
+def getTweetsA():
 	tweetsAprobados=tweetCargado.objects.filter(estado='A').extra(select={'suma':'juez1 + juez2 + juez3'}).order_by('-suma')
-
-	if (len(tweetsAprobados)>=num):
-		return tweetsAprobados
-	else:
-		return tweetsAprobados
+	return tweetsAprobados
 
 def crearJueces():
 	user = User.objects.create_user(username='juez1',
