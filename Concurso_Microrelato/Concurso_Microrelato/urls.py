@@ -12,6 +12,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'concurso.views.index', name='index'),#index
     url(r'^aprobar_tweet/$', 'concurso.views.aprobarTweet', name='aprobarTweet'),#aprueba tweets util a futuro
+    url(r'^rechazar_tweet/$', 'concurso.views.rechazarTweet', name='rechazarTweet'),#rechaza tweets util a futuro
     url(r'^update_rating/$', 'concurso.views.updateRating', name='updateRating'),#aprueba tweets util a futuro
     url(r'^activar_captacion/$', 'concurso.views.activarCaptacion', name='activarCaptacion'),#activa captacion
     url(r'^daemon_status/activar_captacion/$', 'concurso.views.activarCaptacion', name='activarCaptacion'),#activa captacion

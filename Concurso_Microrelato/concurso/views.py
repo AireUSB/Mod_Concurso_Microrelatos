@@ -22,6 +22,16 @@ def aprobarTweet(request):
   return HttpResponse('error')
 
 @login_required(redirect_field_name='')
+def rechazarTweet(request):
+
+  if (request.method=='POST' and 'id' in request.POST):
+	aprobado=tweetCargado.objects.get(idRef=request.POST['id'])
+	aprobado.rechazarTweet()
+	return HttpResponse('Rechazado!')
+	#return redirect('getTweetsPendientes')
+  return HttpResponse('error')
+
+@login_required(redirect_field_name='')
 def updateRating(request):
 
 	if (request.method=='POST' and 'idTweet' in request.POST and 'opcion' in request.POST and 'username' in request.POST):

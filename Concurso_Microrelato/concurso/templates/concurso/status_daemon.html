@@ -18,14 +18,18 @@
                                                                   <span class="label label-warning">Inactivo</span>
                                                                  {% endif %}
       </h1>
-      <p style="text-align:center">Para cambiar el estado, haga click en el boton</p>
-      <center>
-      {% if estado == 'Activo' %}
-        <input class="btn btn-primary btn-lg" type="button" value="Detener Captacion" onclick="location.href='desactivar_captacion/';">
+      {% if user.username == 'aireUSB' %}
+        <h3 style="text-align:center">Para cambiar el estado, haga click en el boton</h3>
+        <center>
+        {% if estado == 'Activo' %}
+          <input class="btn btn-primary btn-lg" type="button" value="Detener Captacion" onclick="location.href='desactivar_captacion/';">
+        {% else %}
+		      <input class="btn btn-primary btn-lg" type="button" value="Comenzar Captacion" onclick="location.href='activar_captacion/';">
+        {% endif %}
+        </center>
       {% else %}
-		    <input class="btn btn-primary btn-lg" type="button" value="Comenzar Captacion" onclick="location.href='activar_captacion/';">
+        <h3 style="text-align:center">Usted no posee permisos para cambiar el estado, por favor contacte al administrador</h3>
       {% endif %}
-      </center>
     </div>
   </body>
 </html>
