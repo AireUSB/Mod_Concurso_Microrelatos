@@ -78,7 +78,7 @@ def buscarHT(hashtag):#busqueda completa no garantizada **verificar ID de tweet 
 
 #convierte una instancia de la clase twitter.status a tweetCargado y lo guarda en la DB 
 def statusToTweet(idRef_,userRef_,text_):
-	nuevoTweet= tweetCargado(idRef=idRef_,userRef=userRef_,rtCount=0,text=text_,rating=0,estado='P')
+	nuevoTweet= tweetCargado(idRef=idRef_,userRef=userRef_,rtCount=0,text=text_,estado='P')
 	nuevoTweet.save()
 
 #convierte lista de la clase twitter.status a tweetCargado y los guarda en la DB

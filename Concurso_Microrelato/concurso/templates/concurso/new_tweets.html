@@ -10,37 +10,57 @@
 		<title>Concurso Twitter Aire-USB</title>
 
 		<script type="text/javascript">
-		function aprobarTweet(id){
+		function aprobarTweet(id,rowid){
 			$.ajax({
 			method: "POST",
 			url: "{% url 'aprobarTweet' %}",
 			data: { id : id }
 			})
 			.done(function( msg ) {
+				
+				var row = document.getElementById(rowid);
+				row.parentNode.removeChild(row);
 				alert( msg );
 			});
+		}
+		function rechazarTweet(id,rowid){
+			$.ajax({
+			method: "POST",
+			url: "{% url 'rechazarTweet' %}",
+			data: { id : id }
+			})
+			.done(function( msg ) {
+				
+				var row = document.getElementById(rowid);
+				row.parentNode.removeChild(row);
+				alert( msg );
+			});
+			
 		}
 
 		</script>
 	</head>
 	<body>
 		<ul>
-      <table style="width:100%" class="table table-striped table-hover ">
-        <thead>
-          <th style="text-align:center">Usuario</th>
-          <th style="text-align:center">Microcuento</th>
-        </thead>
-        <tbody>
-			    {% for tweet in tweets %}
-            <tr>
-				      <td>{{tweet.userRef}}</td>
-              <td>{{tweet.text}}</td>
-              <td><a class="btn btn-success" type="button" href="/tweets_pendientes/aprobar/{{tweet.idRef}}/">Aprobar</a></td>
-              <td><a class="btn btn-danger" type="button" href="/tweets_pendientes/rechazar/{{tweet.idRef}}/">Rechazar</a></td>
-            </tr>
-			    {% endfor %}	
-        </tbody>
-      </table>			
+			<table style="width:100%" class="table table-striped table-hover ">
+				<thead>
+					<th style="text-align:center">Usuario</th>
+					<th style="text-align:center">Microcuento</th>
+				</thead>
+				<tbody>
+					{% for tweet in tweets %}
+						<tr id="itemList{{tweet.idRef}}" >
+							<td>{{tweet.userRef}}</td>
+							<td>{{tweet.text}}</td>
+							<td><a class="btn btn-success" type="button" href="/tweets_pendientes/aprobar/{{tweet.idRef}}/">Aprobar</a></td>
+							<!--
+							<td><a class="btn btn-danger" type="button" href="/tweets_pendientes/rechazar/{{tweet.idRef}}/">Rechazar</a></td>
+							-->
+							<td><a class="btn btn-danger" type="button" onclick="rechazarTweet('{{tweet.idRef}}','itemList{{tweet.idRef}}')">Rechazar</a></td>
+						</tr>
+					{% endfor %}	
+				</tbody>
+			</table>			
 		</ul>
 	</body>
 </html>
