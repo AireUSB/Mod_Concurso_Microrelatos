@@ -3,32 +3,58 @@ import twitter
 import time
 import threading
 from twitter import Status, TwitterError
+from django.contrib.auth.models import User
+import pdb
 # Create your models here.
 #clase q representa un tweet para Django y la DB
 class tweetCargado(models.Model):
-    idRef = models.BigIntegerField(primary_key=True) 		#status.id prymary key
-    userRef = models.CharField(max_length=40,default='')	#status.user.screen_name
-    rtCount = models.IntegerField()							#status.retweet_count
-    text =	models.CharField(max_length=200) 				#status.text
-    juez1 = models.IntegerField(default=0)
-    juez2 = models.IntegerField(default=0)
-    juez3 = models.IntegerField(default=0)							#rating a evaluar
-    ESTADO = (
-        ('A', 'Aprobado'), 	#tweet aprobado y concursando
-        ('R', 'Rechazado'), 
-        ('P', 'Pendiente'), #pendinte por aprobar o rechazar
-    )
-    estado = models.CharField(max_length=1, choices=ESTADO, default='P')
+	idRef = models.BigIntegerField(primary_key=True) 		#status.id prymary key
+	userRef = models.CharField(max_length=40,default='')	#status.user.screen_name
+	rtCount = models.IntegerField()							#status.retweet_count
+	text =	models.CharField(max_length=200) 				#status.text
+	juez1 = models.IntegerField(default=0)
+	juez2 = models.IntegerField(default=0)
+	juez3 = models.IntegerField(default=0)							#rating a evaluar
+	ESTADO = (
+		('A', 'Aprobado'), 	#tweet aprobado y concursando
+		('R', 'Rechazado'), 
+		('P', 'Pendiente'), #pendinte por aprobar o rechazar
+	)
+	estado = models.CharField(max_length=1, choices=ESTADO, default='P')
 
-    def aprobarTweet(self):
-    	api=loginConcurso()
-    	self.estado='A'
-    	self.save()
-    	api.PostRetweet(self.idRef) #se retwitea si se aprueba
+	def aprobarTweet(self):
+		api=loginConcurso()
+		self.estado='A'
+		self.save()
+		api.PostRetweet(self.idRef) #se retwitea si se aprueba
 
-    def rechazarTweet(self):
-      self.estado='R'
-      self.save()
+	def rechazarTweet(self):
+	  self.estado='R'
+	  self.save()
+	
+	def promedioRating(self):
+		return str((self.juez1+self.juez2+self.juez3)/float(3))
+
+	def promedioRatingInt(self):
+		return (self.juez1+self.juez2+self.juez3)/float(3)
+	def updateRating(self,username,opcion):
+		if str(username) == "juez1":
+			self.juez1=int(opcion)
+		if str(username) == "juez2":
+			self.juez2=int(opcion)
+		if str(username) == "juez3":
+			self.juez3=int(opcion)
+		self.save()
+		
+	
+	def getJuez1(self):
+		return str(self.juez1)
+
+	def getJuez2(self):
+		return str(self.juez2)
+
+	def getJuez3(self):
+		return str(self.juez3)
 
 #twiter exige autentificacion para usar su API
 def loginConcurso():
@@ -70,13 +96,13 @@ def updateRtCount():
   tweetsAprobados=tweetCargado.objects.filter(estado='A')
   api = loginConcurso()
   for rtTweet in tweetsAprobados:
-    try:    
-      rtTweet.rtCount=api.GetStatus(id=rtTweet.idRef).retweet_count
-      rtTweet.save()
-    except TwitterError:
-      #Status ya no existe
-      rtTweet.rtCount=-1
-      rtTweet.save()
+	try:    
+	  rtTweet.rtCount=api.GetStatus(id=rtTweet.idRef).retweet_count
+	  rtTweet.save()
+	except TwitterError:
+	  #Status ya no existe
+	  rtTweet.rtCount=-1
+	  rtTweet.save()
   return(tweetsAprobados)
 
 #devuelve lista con tweets aprobados ordenados por su rtCount y actualizado
@@ -147,11 +173,25 @@ def getTweetsP(num):
 #retorna los primeros 'num' tweets aprobados
 def getTweetsA(num):
 
-	tweetsAprobados=tweetCargado.objects.filter(estado='A').order_by('idRef')
+
+	tweetsAprobados=tweetCargado.objects.filter(estado='A').extra(select={'suma':'juez1 + juez2 + juez3'}).order_by('-suma')
+
 	if (len(tweetsAprobados)>=num):
-		return tweetsAprobados[:num]
+		return tweetsAprobados
 	else:
 		return tweetsAprobados
+
+def crearJueces():
+	user = User.objects.create_user(username='juez1',
+                                 email='juez1@juez1.com',
+                                 password='qwerty')
+	user = User.objects.create_user(username='juez2',
+                                 email='juez2@juez2.com',
+                                 password='asdfgh')
+	user = User.objects.create_user(username='juez3',
+                                 email='juez3@juez3.com',
+                                 password='zxcvbn')
+
 
 
 

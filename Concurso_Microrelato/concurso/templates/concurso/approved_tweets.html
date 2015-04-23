@@ -2,30 +2,70 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Concurso Twitter Aire-USB</title>
-
+		<script type="text/javascript">
+			function updateRating(opcion,username,idTweet) {
+			    $.ajax({
+		            method: "POST",
+		            url: "{% url 'updateRating' %}",
+		            data: { idTweet : idTweet , opcion : opcion , username : username }
+		            })
+		            .done(function( msg ) {
+		                if(msg = 'Calificado!'){
+		                	$("#juez"+idTweet).html(opcion);
+		                }
+		                alert( msg );
+		        });
+			}
+		</script>
 	</head>
 	<body>
 		<ul>
-      <table style="width:100%" class="table table-striped table-hover ">
-        <thead>
-          <th style="text-align:center">Usuario</th>
-          <th style="text-align:center">Microcuento</th>
-        </thead>
-        <tbody>
-			    {% for tweet in tweets %}
-            <tr>
-              <td>{{tweet.userRef}}</td>
-              <td>{{tweet.text}}</td>
-            </tr>
-			    {% endfor %}
-        </tbody>
-      </table>	
+			<table style="width:100%" class="table table-striped table-hover ">
+		<thead>
+			<th style="text-align:center">Usuario</th>
+			<th style="text-align:center">Microcuento</th>
+			<th style="text-align:center">Rating</th>
+		</thead>
+		<tbody>
+				{% for tweet in tweets %}
+				<tr>
+
+					<td>{{tweet.userRef}}</td>
+
+					<td>{{tweet.text}}</td>
+					<td>
+						{% if user.username == 'juez1' %} <span id="juez{{tweet.idRef}}" >{{tweet.juez1}}</span> {% endif %}
+
+						{% if user.username == 'juez2' %} <span id="juez{{tweet.idRef}}" >{{tweet.juez2}}</span> {% endif %}
+
+						{% if user.username == 'juez3' %} <span id="juez{{tweet.idRef}}" >{{tweet.juez3}}</span> {% endif %}
+
+						{% if user.username == 'aireUSB' %} <span id="juez{{tweet.idRef}}" >{{tweet.promedioRating}}</span> {% endif %}
+
+						{% if user.username != 'aireUSB' %}
+							<select onchange="updateRating(this.value,'{{user.username}}','{{tweet.idRef}}');">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+							</select>
+						{% endif %}
+					</td>
+					
+
+				</tr>
+				{% endfor %}
+		</tbody>
+	  </table>	
 		</ul>
 	</body>
 </html>
