@@ -12,14 +12,14 @@
 
 	<body>
     <div class="jumbotron">
-      <h1 style="text-align:center">Estado captación de Twitter: {% if estado == 'Activo' %}
+      <h1 style="text-align:center">Estado captacion de Twitter: {% if estado == 'Activo' %}
                                                                   <span class="label label-success">Activo</span>
                                                                  {% else %}
                                                                   <span class="label label-warning">Inactivo</span>
                                                                  {% endif %}
       </h1>
       {% if user.username == 'aireUSB' %}
-        <h3 style="text-align:center">Para cambiar el estado, haga click en el botón</h3>
+        <h3 style="text-align:center">Para cambiar el estado, haga click en el boton</h3>
         <center>
         {% if estado == 'Activo' %}
           <input class="btn btn-primary btn-lg" type="button" value="Detener Captacion" onclick="location.href='desactivar_captacion/';">

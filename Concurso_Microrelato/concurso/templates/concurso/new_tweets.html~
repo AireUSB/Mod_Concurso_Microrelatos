@@ -61,11 +61,11 @@
             <a class="btn btn-default btn-sm" type="button" href="">Cargar 15 Proximos Tweets</a>
           </center>
         {% else %}
-          <h3 style="text-align:center">No hay tweets pendientes en este momento.</h3>
+          <h3 style="text-align:center">No hay tweets pendientes en este momento</h3>
         {% endif %}
 		  </ul>
     {% else %}
-      <h3 style="text-align:center">Usted no posee permisos para aprobar nuevos tweets, por favor contacte al administrador.</h3>
+      <h3 style="text-align:center">Usted no posee permisos para aprobar nuevos tweets, por favor contacte al administrador</h3>
     {% endif %}
 	</body>
 </html>

@@ -48,7 +48,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url "index" %}">Módulo Microrelatos AireUSB</a>
+            <a class="navbar-brand" href="{% url "index" %}">Modulo Microrelatos AireUSB</a>
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -63,7 +63,7 @@
                 <a href="{% url "getTweetsPendientes" %}">Tweets Pendientes</a>
               </li>
               <li class="{% if request.resolver_match.url_name == "daemonStatus" %}active{% endif %}">
-                <a href="{% url "daemonStatus" %}">Status Captación</a>
+                <a href="{% url "daemonStatus" %}">Status Captacion</a>
               </li>
               <li class="{% if request.resolver_match.url_name == "getTweetsPorRT" %}active{% endif %}">
                 <a href="{% url "getTweetsPorRT" %}">Top Retweets</a>
@@ -92,7 +92,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="text-muted">Elaborado por estudiantes de Ingeniería de Computación de la Universidad Simón Bolívar</p>
+        <p class="text-muted">Elaborado por estudiantes de Ingenieria de Computacion de la Universidad Simon Bolivar</p>
         <p class="text-muted">© 2015</p>
       </div>
     </div>

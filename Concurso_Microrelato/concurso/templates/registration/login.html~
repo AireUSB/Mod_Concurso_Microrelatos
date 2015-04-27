@@ -15,12 +15,12 @@
   <body>
   {% if form.errors %}
     <div class="alert alert-danger" style="text-align:center">
-      <p><strong>Error: </strong>Combinación username/contraseña incorrecta. Por favor intente de nuevo.</p>
+      <p><strong>Error: </strong>Combinacion username/contraseña incorrecta. Favor intente de nuevo.</p>
     </div>
   {% endif %}
 
   <div class="container" align="center" style="margin-top: 100px">
-    <h1>Login al Módulo de Microrelatos de AireUSB</h1>
+    <h1>Login al Modulo de Microrelatos de AireUSB</h1>
     <form method="post" action="{% url 'django.contrib.auth.views.login' %}" style="margin-top: 50px">
       {% csrf_token %}
       <table>
