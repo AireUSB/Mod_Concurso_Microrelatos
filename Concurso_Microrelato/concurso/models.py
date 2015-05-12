@@ -186,8 +186,10 @@ def crearJueces():
                                  email='juez3@juez3.com',
                                  password='zxcvbn')
 
-
-
-
-
-
+def getNumTotals():
+  totalTweets = tweetCargado.objects.count()
+  totalPendientes = tweetCargado.objects.filter(estado='P').count()
+  totalAprobados = tweetCargado.objects.filter(estado='A').count()
+  totalRechazados = tweetCargado.objects.filter(estado='R').count()
+  totales = { 'totales': totalTweets, 'pendientes': totalPendientes, 'aprobados': totalAprobados, 'rechazados': totalRechazados}
+  return totales

@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^tweets_pendientes/rechazar/(?P<idtweet>\d+)/$', 'concurso.views.rechazarTweetURL', name='rechazarTweetURL'),#rechazar tweet
     url(r'^tweets_aprobados/$', 'concurso.views.getTweetsAprobados', name='getTweetsAprobados'),#tweets aprobados
     url(r'^top_tweets_rt/$', 'concurso.views.getTweetsPorRT', name='getTweetsPorRT'),#tweets por RT
+    url(r'^tweet_totals/$', 'concurso.views.getTweetTotals', name='getTweetTotals'),#totales tweets
     url(r'^admin/', include(admin.site.urls)),#admin site
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',name='login'),#login
     url(r'^logout/$', 'django.contrib.auth.views.logout'),#logout

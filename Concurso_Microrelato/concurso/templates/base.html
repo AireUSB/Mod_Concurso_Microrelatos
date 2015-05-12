@@ -68,6 +68,9 @@
               <li class="{% if request.resolver_match.url_name == "getTweetsPorRT" %}active{% endif %}">
                 <a href="{% url "getTweetsPorRT" %}">Top Retweets</a>
               </li>
+              <li class="{% if request.resolver_match.url_name == "getTweetTotals" %}active{% endif %}">
+                <a href="{% url "getTweetTotals" %}">Estadisticas</a>
+              </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

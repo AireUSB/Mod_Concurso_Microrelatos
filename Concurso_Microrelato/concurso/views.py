@@ -93,3 +93,8 @@ def getTweetsPorRT(request):
   toptweets.order_by('-rtCount')
   info = {'tweets':toptweets}
   return render(request, 'concurso/top_retweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
+
+@login_required(redirect_field_name='')
+def getTweetTotals(request):
+  info = getNumTotals()
+  return render(request, 'concurso/tweet_totals.html', info)
