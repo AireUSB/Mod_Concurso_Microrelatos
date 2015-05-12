@@ -68,10 +68,10 @@ def loginConcurso():
 
 
 #realiza busqueda del parametro hashtag
-def buscarHT(hashtag):#busqueda completa no garantizada **verificar ID de tweet del inicio del concurso para ponerlo como 'since id ' o solucionar con streaming y hilos demonio, probar con el runserver
+def buscarHT(hashtag,desde_id):#busqueda completa no garantizada 
 	api = loginConcurso()
 
-	busqueda=api.GetSearch(term=hashtag,count=15)
+	busqueda=api.GetSearch(term=hashtag,count=100,since_id=desde_id)
 
 
 	return(busqueda)
@@ -87,8 +87,8 @@ def statusListToTweet(statusList):
 		statusToTweet(idRef_=newTweet.id, userRef_=newTweet.user.screen_name, text_=newTweet.text)
 
 #busca y agrega a la DB lo obtenido en la busqueda del parametro 'palabra'
-def searchToTweet(palabra):
-	busqueda=buscarHT(palabra)
+def searchToTweet(palabra,desde_id):
+	busqueda=buscarHT(palabra,desde_id)
 	statusListToTweet(busqueda)
 
 #actializa el conteo de retweets de los tweets aprobados
@@ -143,11 +143,18 @@ def startDaemonThread(busqueda):
 		api=loginConcurso()
 		try:
 			daemonStatus = 1
+			#control falla
+			ultimos = tweetCargado.objects.order_by('-idRef')
+			if (len(ultimos) > 0 ):
+				searchToTweet(busqueda,ultimos[0].idRef)
+				ultimos[0].idRef
+			#control falla
 			global daemonThread
 			daemonThread = threading.Thread(target=startTweetStream, args=[busqueda,api])
 			daemonThread.start()
 		except:
 			print "Error: unable to start thread"
+			daemonStatus = 0
 
 #desactiva hilo demonio
 def stopDaemonThread():
