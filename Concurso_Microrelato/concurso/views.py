@@ -56,15 +56,13 @@ def rechazarTweetURL(request,idtweet):
 def activarCaptacion(request):
   startDaemonThread('palabra')
   return redirect('daemonStatus')
-  #return HttpResponse('Captando Tweets')
-  #return render(request, "concurso/status_daemon.html", {'estado':'Activo'})
+  
 
 @login_required(redirect_field_name='')
 def desactivarCaptacion(request):
   stopDaemonThread()
   return redirect('daemonStatus')
-  #return HttpResponse('Captacion Detenida')
-  #return render(request, "concurso/status_daemon.html", {'estado':'Inactivo'})
+  
 
 @login_required(redirect_field_name='')
 def daemonStatus(request):
@@ -89,12 +87,18 @@ def getTweetsAprobados(request):
 
 @login_required(redirect_field_name='')
 def getTweetsPorRT(request):
-  toptweets = getTopRt()
-  toptweets.order_by('-rtCount')
-  info = {'tweets':toptweets}
-  return render(request, 'concurso/top_retweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
+	toptweets = getTopRt()
+	info = {'tweets':toptweets}
+	return render(request, 'concurso/top_retweets.html',info) #hay q mandar solo no necesario. usar cotext con renders
+
+@login_required(redirect_field_name='')
+def updateRtCountURL(request):
+	updateRtCount()
+	#info = {'tweets':toptweets}
+	return redirect(getTweetsPorRT)
+	#return render(request, 'concurso/top_retweets.html',info)
 
 @login_required(redirect_field_name='')
 def getTweetTotals(request):
-  info = getNumTotals()
-  return render(request, 'concurso/tweet_totals.html', info)
+	info = getNumTotals()
+	return render(request, 'concurso/tweet_totals.html', info)

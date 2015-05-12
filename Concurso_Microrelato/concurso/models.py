@@ -93,7 +93,7 @@ def searchToTweet(palabra):
 
 #actializa el conteo de retweets de los tweets aprobados
 def updateRtCount():
-  tweetsAprobados=tweetCargado.objects.filter(estado='A')
+  tweetsAprobados=getTopRt()
   api = loginConcurso()
   for rtTweet in tweetsAprobados:
 	try:    
@@ -107,8 +107,7 @@ def updateRtCount():
 
 #devuelve lista con tweets aprobados ordenados por su rtCount y actualizado
 def getTopRt():
-	aprobados = updateRtCount()
-	aprobados.order_by('-rtCount')
+	aprobados = tweetCargado.objects.filter(estado='A').order_by('-rtCount')
 	return (aprobados)
 
 #imprime lista de twitter.status
